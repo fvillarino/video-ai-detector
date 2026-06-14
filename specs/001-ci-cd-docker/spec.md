@@ -1,6 +1,6 @@
 # Spec 001 — CI/CD de imagen Docker
 
-- **Estado:** Aprobado
+- **Estado:** Implementado
 - **Autor:** Federico Villarino
 - **Fecha:** 2026-06-14
 

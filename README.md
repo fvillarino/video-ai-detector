@@ -92,14 +92,20 @@ El workflow buildea la imagen `linux/amd64` y la publica con los tags `v1.0.1`, 
 
 ### Deploy en el servidor (Beelink)
 
-El servicio corre con Docker Compose (más un nginx que sirve los snapshots). La versión a
-desplegar se fija en un archivo `.env`:
+El servidor corre un `docker-compose.yml` **suelto** (no es un clon del repo): el servicio
+`camera-ai` más un nginx que sirve los snapshots, con `config.yaml`, `snapshots/` y `models/`
+montados como volúmenes y `network_mode: host`.
+
+Para desplegar una versión nueva, apuntá la imagen al tag publicado en GHCR y actualizá:
 
 ```bash
-cp .env.example .env          # editar APP_VERSION con el tag a desplegar (ej. v1.0.1)
-make deploy                   # docker compose pull && up -d
+# en el server, en la carpeta del docker-compose.yml
+# editar la línea image: a ghcr.io/fvillarino/video-ai-detector:<tag>   (ej. v1.0.1)
+docker compose pull
+docker compose up -d
+docker compose logs -f camera-ai     # verificar
 ```
 
-Para actualizar a una versión nueva: cambiá `APP_VERSION` en `.env` y volvé a correr `make deploy`.
-
-Otros comandos: `make logs` (seguir logs), `make down` (detener).
+> **Si en cambio corrés desde un checkout del repo:** el `docker-compose.yml` versionado usa
+> `${APP_VERSION:-latest}`. En ese caso, fijá la versión con `cp .env.example .env` (editar
+> `APP_VERSION`) y usá `make deploy` (= `docker compose pull && up -d`).
