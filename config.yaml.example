@@ -1,0 +1,43 @@
+app:
+  name: camera-ai
+  log_level: INFO
+
+cameras:
+  - name: cochera
+    rtsp_url: "rtsp://USUARIO:PASSWORD@IP_CAMARA:554/cam/realmonitor?channel=1&subtype=1"
+    reconnect_delay_seconds: 5
+    frame_skip: 2
+  # - name: patio
+  #   rtsp_url: "rtsp://USUARIO:PASSWORD@IP_CAMARA:554/cam/realmonitor?channel=6&subtype=1"
+  #   reconnect_delay_seconds: 5
+  #   frame_skip: 2
+
+detection:
+  model: "yolov8n.pt"
+  classes_to_detect:
+    - person
+  confidence_threshold: 0.5
+  image_size: 640
+  process_every_n_frames: 3
+  cooldown_seconds: 10
+
+mqtt:
+  enabled: true
+  host: "IP_BROKER_MQTT"
+  port: 1883
+  username: "USUARIO_MQTT"
+  password: "PASSWORD_MQTT"
+  client_id_prefix: "camera-ai"
+  topic: "cameras/detections"
+
+snapshots:
+  enabled: true
+  path: "snapshots"
+  base_url: "http://IP_SERVIDOR:8081/snapshots"
+
+publish:
+  include_timestamp: true
+  include_camera_name: true
+  include_confidence: true
+  include_bbox: false
+  include_image_url: true

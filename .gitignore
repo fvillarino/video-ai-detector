@@ -1,0 +1,9 @@
+*.pt
+__pycache__/
+*.pyc
+.env
+*.log
+config.yaml
+snapshots/
+yolov8n.pt
+.venv/
