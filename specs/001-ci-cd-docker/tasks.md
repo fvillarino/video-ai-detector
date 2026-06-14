@@ -9,7 +9,7 @@ Pasos para implementar [plan.md](plan.md). Marcar a medida que se completan.
 - [x] 5. Actualizar `README.md`: reemplazar "Docker (próxima etapa)" por "Release y deploy".
 - [x] 6. Actualizar `CLAUDE.md`: comandos (GHCR, `make deploy`) y flujo de release.
 - [x] 7. Verificar local: `docker compose config` resuelve la imagen y versión correctas.
-- [ ] 8. (Manual, usuario) Cortar primer release: `git tag v1.0.0 && git push origin v1.0.0`, confirmar workflow en GHCR.
+- [x] 8. Cortar primer release: tag `v1.0.0` pusheado, workflow verde (2m46s), imagen publicada en GHCR con tags v1.0.0 / sha-5a52e6f / latest.
 - [ ] 9. (Manual, usuario) Marcar el package GHCR como público.
 - [ ] 10. (Manual, usuario) En el Beelink: crear `.env`, `make deploy`, verificar logs.
 
