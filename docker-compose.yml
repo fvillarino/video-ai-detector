@@ -1,6 +1,6 @@
 services:
   camera-ai:
-    image: fvillarino/video-ai-detector:latest
+    image: ghcr.io/fvillarino/video-ai-detector:${APP_VERSION:-latest}
     restart: unless-stopped
     volumes:
       - ./config.yaml:/app/config.yaml:ro

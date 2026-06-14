@@ -56,12 +56,23 @@ pip install -r requirements.txt
 # Correr local (requiere config.yaml a partir de config.yaml.example)
 python main.py            # o:  make run
 
-# Docker
-make build                # build de la imagen
+# Docker (local)
+make build                # build manual de la imagen (fallback; el publish oficial es CI)
 make up                   # docker compose up -d
 make logs                 # seguir logs del contenedor
 make down
+
+# Deploy en el Beelink (versión fijada en .env -> APP_VERSION)
+make deploy               # docker compose pull && up -d
 ```
+
+## Release y CI/CD
+
+La imagen se publica en **GHCR** (`ghcr.io/fvillarino/video-ai-detector`) vía GitHub Actions
+([.github/workflows/docker-publish.yml](.github/workflows/docker-publish.yml)) al pushear un tag
+`v*`. Tags de imagen: el git tag (`v1.0.1`), `sha-<commit>` y `latest`. Build `linux/amd64`
+(el Beelink es x86_64). El deploy es **manual**: en el server se fija `APP_VERSION` en `.env` y
+se corre `make deploy`. Detalle completo en [specs/001-ci-cd-docker/](specs/001-ci-cd-docker/).
 
 No hay suite de tests todavía. Si agregás features con lógica no trivial
 (rate limiting, parsing de config, construcción de payload), agregá tests con `pytest`

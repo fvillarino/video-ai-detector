@@ -73,10 +73,33 @@ Cuando se detecta una persona:
 }
 ```
 
-## Docker (próxima etapa)
+## Release y deploy
 
-La estructura está preparada para dockerizarse. Se requiere:
+La imagen Docker se publica automáticamente en **GHCR**
+(`ghcr.io/fvillarino/video-ai-detector`) mediante GitHub Actions al pushear un tag de versión.
 
-1. `Dockerfile` con imagen base Python + OpenCV
-2. Montar `config.yaml` como volumen
-3. Exponer acceso de red al stream RTSP y broker MQTT
+### Cortar un release
+
+```bash
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+El workflow buildea la imagen `linux/amd64` y la publica con los tags `v1.0.1`, `sha-<commit>` y `latest`.
+
+> La primera vez, marcá el package como **público** en GitHub (repo → Packages → package settings)
+> para que el servidor pueda pullear sin login.
+
+### Deploy en el servidor (Beelink)
+
+El servicio corre con Docker Compose (más un nginx que sirve los snapshots). La versión a
+desplegar se fija en un archivo `.env`:
+
+```bash
+cp .env.example .env          # editar APP_VERSION con el tag a desplegar (ej. v1.0.1)
+make deploy                   # docker compose pull && up -d
+```
+
+Para actualizar a una versión nueva: cambiá `APP_VERSION` en `.env` y volvé a correr `make deploy`.
+
+Otros comandos: `make logs` (seguir logs), `make down` (detener).
