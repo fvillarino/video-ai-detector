@@ -74,9 +74,15 @@ La imagen se publica en **GHCR** (`ghcr.io/fvillarino/video-ai-detector`) vía G
 (el Beelink es x86_64). El deploy es **manual**: en el server se fija `APP_VERSION` en `.env` y
 se corre `make deploy`. Detalle completo en [specs/001-ci-cd-docker/](specs/001-ci-cd-docker/).
 
-No hay suite de tests todavía. Si agregás features con lógica no trivial
-(rate limiting, parsing de config, construcción de payload), agregá tests con `pytest`
-en `tests/` y documentá cómo correrlos.
+Tests con `pytest` en `tests/` (deps en `requirements-dev.txt`):
+
+```powershell
+pip install -r requirements-dev.txt
+.venv\Scripts\python.exe -m pytest -q
+```
+
+Si agregás features con lógica no trivial (rate limiting, parsing de config, construcción de
+payload, dibujado de snapshots), sumá tests. El primero es `tests/test_snapshot.py` (spec 002).
 
 ## Convenciones de código
 

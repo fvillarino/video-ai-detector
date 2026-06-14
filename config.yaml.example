@@ -34,6 +34,7 @@ snapshots:
   enabled: true
   path: "snapshots"
   base_url: "http://IP_SERVIDOR:8081/snapshots"
+  draw_detections: true   # dibujar recuadro + clase/confianza sobre el snapshot
 
 publish:
   include_timestamp: true

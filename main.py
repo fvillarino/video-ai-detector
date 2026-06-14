@@ -109,6 +109,8 @@ def camera_loop(
                         camera_name,
                         snap_cfg["path"],
                         snap_cfg["base_url"],
+                        detections=detections,
+                        draw_detections=snap_cfg.get("draw_detections", True),
                     )
 
                 if mqtt_client:

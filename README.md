@@ -51,6 +51,7 @@ Editar `config.yaml` y ajustar:
 | `mqtt.host` | IP o hostname del broker MQTT |
 | `mqtt.username` / `mqtt.password` | Credenciales MQTT |
 | `mqtt.topic` | Topic donde se publican los eventos |
+| `snapshots.draw_detections` | Dibujar recuadro + clase/confianza sobre el snapshot (default `true`) |
 
 ## Correr
 
@@ -59,6 +60,13 @@ python main.py
 ```
 
 La primera ejecución descargará automáticamente el modelo `yolov8n.pt`.
+
+## Tests
+
+```bash
+pip install -r requirements-dev.txt
+pytest -q
+```
 
 ## Payload MQTT publicado
 
