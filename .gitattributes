@@ -1,0 +1,11 @@
+# Normalización de finales de línea.
+# Por defecto, git detecta archivos de texto y normaliza a LF en el repo.
+* text=auto
+
+# Scripts shell SIEMPRE con LF: corren dentro del contenedor Linux y fallan
+# con CRLF (error tipo "no such file or directory" al ejecutar el entrypoint).
+*.sh text eol=lf
+entrypoint.sh text eol=lf
+
+# Modelos y binarios: tratar como binario (sin normalizar).
+*.pt binary
